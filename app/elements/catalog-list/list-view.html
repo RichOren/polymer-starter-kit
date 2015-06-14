@@ -49,14 +49,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
     <div class="main">
-        <iron-meta key="info" value="foo/bar"></iron-meta>
 
         <template id="catalogList" is="dom-repeat" items="[[data]]">
 
           <paper-item>
             <paper-item-body two-line>
               <div>[[item.category]]</div>
-              <div secondary>[[item.categories]]</div>
+                <template is="dom-if" if="{{item.categories}}">
+                  <div secondary>[[item.categories]]</div>
+                </template>
+                <template is="dom-if" if="{{item.collections}}">
+                  <div secondary>[[item.collections]]</div>
+                </template>
+              
             </paper-item-body>
             <iron-icon icon="info"></iron-icon>
           </paper-item>
@@ -116,6 +121,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               name: 'hero-animation',
               id: 'hero',
               fromPage: this
+
             }]
           };
         }
@@ -125,8 +131,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     _onClick: function(event) {
       var target = event.target;
-
-
 
       var item = this.$.catalogList.itemForElement(event.target);
       this.selected = item;

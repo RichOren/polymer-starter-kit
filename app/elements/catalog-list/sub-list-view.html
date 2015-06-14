@@ -43,12 +43,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
    <paper-toolbar class="tall">
         <paper-icon-button class="bottom" icon="menu"></paper-icon-button>
-        <div title class="bottom toolbar-title">Art Catalog</div>
+        <div title class="bottom toolbar-title">{{subSelected}}</div>
         <iron-image class="flex fit" style="height:192px; background-color: lightgray;" sizing="cover" preload fade src="http://lorempixel.com/400/200/abstract/"></iron-image>
     </paper-toolbar>
 
 
-    <div class="main">
+    <div id="main" class="main">
         <iron-meta key="info" value="foo/bar"></iron-meta>
 
         <template id="catalogList" is="dom-repeat" items="[[data]]">
@@ -85,6 +85,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     properties: {
 
+      sharedElements: {
+        type: Object,
+        value: function() {
+          return {
+            'hero': this.$.main
+          };
+        }
+      },
+
       data: {
         type: Array,
         value: function() {
@@ -104,11 +113,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         type: Object,
         value: function() {
           return {
-            'entry': [{
-              name: 'fade-in-animation',
-              node: this.$.button
-            }],
-
             'exit': [{
               name: 'fade-out-animation',
               node: this.$.button
