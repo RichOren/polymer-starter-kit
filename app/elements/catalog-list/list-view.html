@@ -63,6 +63,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 </template>
               
             </paper-item-body>
+
             <iron-icon icon="info"></iron-icon>
           </paper-item>
 
@@ -136,7 +137,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this.selected = item;
       if (item == undefined) {
         return;
-      };
+      }
       console.log('_onClick:::selected', this.selected);
 
       while (target !== this && !target._templateInstance) {
@@ -145,11 +146,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       // configure the page animation
       this.sharedElements = {
-        'hero': target,
+        'hero': target
       };
 
       this.fire('item-click', {
-        item: item,
+        item: item
       });
     }
 

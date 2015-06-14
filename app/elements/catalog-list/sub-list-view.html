@@ -42,8 +42,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template>
 
    <paper-toolbar class="tall">
-        <paper-icon-button class="bottom" icon="menu"></paper-icon-button>
-        <div title class="bottom toolbar-title">{{subSelected}}</div>
+        <paper-icon-button class="bottom" icon="menu" on-click="_onBackButtonClick"></paper-icon-button>
+        <div title class="bottom toolbar-title">{{category.category}}</div>
         <iron-image class="flex fit" style="height:192px; background-color: lightgray;" sizing="cover" preload fade src="http://lorempixel.com/400/200/abstract/"></iron-image>
     </paper-toolbar>
 
@@ -84,6 +84,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     properties: {
+
+      category: {
+        type: Object,
+        value: null
+      },
 
       sharedElements: {
         type: Object,
@@ -136,7 +141,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this.subSelected = item;
       if (item == undefined) {
         return;
-      };
+      }
       console.log('_onClick:::selected', this.selected);
 
       while (target !== this && !target._templateInstance) {
@@ -151,7 +156,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this.fire('item-click', {
         item: item,
       });
+    },
+
+    _onBackButtonClick: function() {
+      this.fire('back');
     }
+
 
   });
 
