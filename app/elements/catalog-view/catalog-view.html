@@ -1,0 +1,125 @@
+<!--
+-->
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="/bower_components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="/bower_components/neon-animation/neon-animations.html">
+<link rel="import" href="topcategory-list.html">
+<link rel="import" href="subcategory-list.html">
+<link rel="import" href="collection-list.html">
+<link rel="import" href="collection-view.html">
+
+<dom-module id="catalog-view">
+
+    <style>
+    :host {
+        display: block;
+    }
+    neon-animated-pages {
+        height: 100%;
+    }
+    </style>
+
+    <template>
+        <iron-ajax auto
+            url="/data/collection/collections.json"
+            handle-as="json"
+            last-response="{{topCategories}}"></iron-ajax>
+
+        <neon-animated-pages id="pages" 
+                             selected="0" 
+                             entry-animation="[[entryAnimation]]" 
+                             exit-animation="[[exitAnimation]]">
+
+            <topcategory-list              
+                top-categories="[[topCategories]]"
+                on-top-category-click="onTopCategoryClick"></topcategory-list>
+
+            <subcategory-list
+                category="{{selectedTopCategory}}"
+                on-subcategory-click="onSubCategoryClick"
+                on-back="onSubCategoryBack"></subcategory-list>
+
+            <collection-list
+                on-back="onSubCategoryBack"
+                on-collection-click="onCollectionClick"
+                category="{{selectedSubCategory}}"></collection-list>
+
+            <collection-view
+                on-back="onSubCategoryBack"
+                collection="{{selectedCollection}}"></collection-view>
+
+        </neon-animated-pages>
+    </template>
+
+</dom-module>
+<script>
+Polymer({
+
+    is: 'catalog-view',
+
+    properties: {
+
+    },
+
+    onTopCategoryClick: function(event) {
+        var topCategory = event.detail.topCategory;
+        console.log('onCategoryClick', topCategory);
+        if( topCategory.categories ) {
+            this.selectedTopCategory = topCategory;
+            this.selectedSubCategory = null;
+            this._onNextPage(1);
+        }
+        else {
+            this.selectedTopCategory = topCategory;
+            this.selectedSubCategory = topCategory;
+            this._onNextPage(2);
+        }
+
+    },
+
+    onSubCategoryClick: function(event) {
+        var subCategory = event.detail.subCategory;
+        console.log('onSubCategoryClick', subCategory);
+        this.selectedSubCategory = subCategory;
+        this._onNextPage(2);
+    },
+
+    onSubCategoryBack: function() {
+        if (this.selectedCollection) {
+            this._onPrevPage(2);
+            this.selectedCollection = null;
+        }else{
+            if(!this.selectedSubCategory || this.selectedTopCategory === this.selectedSubCategory){
+                this._onPrevPage(0);
+            }else{
+                this._onPrevPage(1);
+                this.selectedSubCategory = null;
+            }
+        }
+        
+    },
+
+    onCollectionClick: function(event) {
+        var collection = event.detail.collection;
+        console.log('onCollectionClick', collection);
+        this.selectedCollection = collection;
+        this._onNextPage(3);
+    },
+
+    _onPrevPage: function(index) {
+            this.entryAnimation = 'slide-from-left-animation';
+            this.exitAnimation = 'slide-right-animation';
+            this.$.pages.selected = index;
+    },
+
+    _onNextPage: function(index) {
+        this.entryAnimation = 'slide-from-right-animation';
+        this.exitAnimation = 'slide-left-animation';
+        this.$.pages.selected = index;
+    }
+
+});
+</script>

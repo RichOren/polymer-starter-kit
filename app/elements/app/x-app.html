@@ -34,15 +34,15 @@ Extended Header + List Right + Card Over Toolbar
 <dom-module id="x-app">
     <link rel="import" type="css" href="x-app.css">
     <template>
-        <paper-drawer-panel id="drawerPanel" responsive-width="1024px" peeking="true" drawer-width="{{drawerWidth}}" right-drawer>
+        <paper-drawer-panel id="drawerPanel" 
+                            responsive-width="1024px"
+                            drawer-width="{{drawerWidth}}" 
+                            right-drawer>
+
             <paper-header-panel class="list-panel" drawer mode="seamed">
-               <!--  <paper-toolbar class$="{{toolbarClass}}">
-                    <paper-icon-button class="bottom" icon="menu"></paper-icon-button>
-                    <div title class="bottom toolbar-title">Catalog Title</div>
-                    <iron-image class="flex fit" style="height:192px; background-color: lightgray;" sizing="cover" preload fade src="http://lorempixel.com/400/200/abstract/"></iron-image>
-                </paper-toolbar> -->
-                <catalog-list class="fit"></catalog-list>
+                <catalog-view class="fit"></catalog-view>
             </paper-header-panel>
+
             <paper-header-panel class="main-panel" main mode="{{mainMode}}">
                 <!-- Main Toolbar -->
                 <paper-toolbar class$="{{toolbarClass}}">
@@ -52,24 +52,28 @@ Extended Header + List Right + Card Over Toolbar
                   <span class="flex"></span>
                   <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
                 </paper-toolbar>
+
                 <div class="content">
                     <paper-material>
-                        <!-- Card Content -->
-                        <!-- <paper-toolbar>
-                            <button on-click="_onPrevClick">&lt;&lt;</button>
-                            <button on-click="_onNextClick">&gt;&gt;</button>
-                        </paper-toolbar> -->
-                        <neon-animated-pages id="pages" class="flex fit" selected="[[selected]]" entry-animation="[[entryAnimation]]" exit-animation="[[exitAnimation]]">
+                        <neon-animated-pages id="pages" 
+                                             class="flex fit" 
+                                             selected="[[selected]]" 
+                                             entry-animation="[[entryAnimation]]" 
+                                             exit-animation="[[exitAnimation]]">
+
                             <neon-animatable>1</neon-animatable>
                             <neon-animatable>2</neon-animatable>
                             <neon-animatable>3</neon-animatable>
                             <neon-animatable>4</neon-animatable>
                             <neon-animatable>5</neon-animatable>
+
                         </neon-animated-pages>
                     </paper-material>
                 </div>
+
             </paper-header-panel>
         </paper-drawer-panel>
+        
         <iron-media-query query="(max-width: 780px)" query-matches="{{_isMobile}}"></iron-media-query>
     </template>
     <!--
