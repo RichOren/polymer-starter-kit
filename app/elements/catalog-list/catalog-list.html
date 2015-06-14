@@ -1,0 +1,312 @@
+<!--
+-->
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="/bower_components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="/bower_components/neon-animation/neon-animations.html">
+<link rel="import" href="list-view.html">
+<link rel="import" href="sub-list-view.html">
+<link rel="import" href="full-view.html">
+<dom-module id="catalog-list">
+    <style>
+    :host {
+        display: block;
+    }
+    
+    neon-animated-pages {
+        height: 100%;
+    }
+    </style>
+    <template>
+        <neon-animated-pages id="pages" selected="0">
+            <list-view data="[[categoryData]]" selected="{{selected}}" on-item-click="_onItemClick"></list-view>
+            <sub-list-view data="[[selected.categories]]" sub-selected="{{subSelected}}" on-item-click="_onItemClick2"></sub-list-view>
+            <full-view on-close="_onClose" selected="{{subSelected}}"></full-view>
+        </neon-animated-pages>
+    </template>
+</dom-module>
+<script>
+Polymer({
+
+    is: 'catalog-list',
+
+    properties: {
+
+        categoryData: {
+            type: Array,
+            value: function() {
+                return [{
+                    "category": "Ancient World",
+                    "categories": [{
+                        "category": "Assyrian",
+                        "collections": [{
+                            "name": "Assyrian 1"
+                        }, {
+                            "name": "Assyrian 2"
+                        }]
+                    }, {
+                        "category": "Egyptian",
+                        "collections": [{
+                            "name": "Egyptian 1"
+                        }, {
+                            "name": "Egyptian 2"
+                        }]
+                    }, {
+                        "category": "Etruscan",
+                        "collections": [{
+                            "name": "Etruscan 1"
+                        }, {
+                            "name": "Etruscan 2"
+                        }]
+                    }, {
+                        "category": "Greek",
+                        "collections": [{
+                            "name": "Greek 1"
+                        }, {
+                            "name": "Greek 2"
+                        }]
+                    }, {
+                        "category": "Greek-Roman",
+                        "collections": [{
+                            "name": "Pompeii 1"
+                        }, {
+                            "name": "Pompeii 2"
+                        }]
+                    }, {
+                        "category": "Late Antiquity",
+                        "collections": [{
+                            "name": "Late Antiquity 1"
+                        }, {
+                            "name": "Late Antiquity 2"
+                        }]
+                    }, {
+                        "category": "Primitive",
+                        "collections": [{
+                            "name": "Primitive 1"
+                        }, {
+                            "name": "Primitive 2"
+                        }]
+                    }]
+                }, {
+                    "category": "Architectural",
+                    "collections": [{
+                        "name": "Architectural 1"
+                    }, {
+                        "name": "Architectural 2"
+                    }]
+                }, {
+                    "category": "Art Nouveau",
+                    "collections": [{
+                        "name": "Art Nouveau 1"
+                    }, {
+                        "name": "Art Nouveau 2"
+                    }]
+                }, {
+                    "category": "Borders",
+                    "collections": [{
+                        "name": "Borders 1"
+                    }, {
+                        "name": "Borders 2"
+                    }]
+                }, {
+                    "category": "Exotic East",
+                    "categories": [{
+                        "category": "Arab",
+                        "collections": [{
+                            "name": "Arab 1"
+                        }, {
+                            "name": "Arab 2"
+                        }]
+                    }, {
+                        "category": "Chinese",
+                        "collections": [{
+                            "name": "Chinese 1"
+                        }, {
+                            "name": "Chinese 2"
+                        }]
+                    }, {
+                        "category": "Indian",
+                        "collections": [{
+                            "name": "Indian 1"
+                        }, {
+                            "name": "Indian 2"
+                        }]
+                    }, {
+                        "category": "Indo Persian",
+                        "collections": [{
+                            "name": "Indo Persian 1"
+                        }, {
+                            "name": "Indo Persian 2"
+                        }]
+                    }, {
+                        "category": "Japanese",
+                        "collections": [{
+                            "name": "Japanese 1"
+                        }, {
+                            "name": "Japanese 2"
+                        }]
+                    }, {
+                        "category": "Moroccan",
+                        "collections": [{
+                            "name": "Moroccan 1"
+                        }, {
+                            "name": "Moroccan 2"
+                        }]
+                    }, {
+                        "category": "Ottoman",
+                        "collections": [{
+                            "name": "Ottoman 1"
+                        }, {
+                            "name": "Ottoman 2"
+                        }]
+                    }, {
+                        "category": "Persian",
+                        "collections": [{
+                            "name": "Persian 1"
+                        }, {
+                            "name": "Persian 2"
+                        }]
+                    }]
+                }, {
+                    "category": "Floral",
+                    "collections": [{
+                        "name": "Assyrian 1"
+                    }, {
+                        "name": "Floral 2"
+                    }]
+                }, {
+                    "category": "Landscape",
+                    "collections": [{
+                        "name": "Landscape 1"
+                    }, {
+                        "name": "Landscape 2"
+                    }]
+                }, {
+                    "category": "Maps",
+                    "collections": [{
+                        "name": "Maps 1"
+                    }, {
+                        "name": "Maps 2"
+                    }]
+                }, {
+                    "category": "Marquetry",
+                    "collections": [{
+                        "name": "Marquetry 1"
+                    }, {
+                        "name": "Marquetry 2"
+                    }]
+                }, {
+                    "category": "Medieval",
+                    "categories": [{
+                        "category": "Celtic",
+                        "collections": [{
+                            "name": "Celtic 1"
+                        }, {
+                            "name": "Celtic 2"
+                        }]
+                    }, {
+                        "category": "Moorish",
+                        "collections": [{
+                            "name": "Moorish 1"
+                        }, {
+                            "name": "Moorish 2"
+                        }]
+                    }, {
+                        "category": "Religious",
+                        "collections": [{
+                            "name": "Religious 1"
+                        }, {
+                            "name": "Religious 2"
+                        }]
+                    }]
+                }, {
+                    "category": "Modern",
+                    "collections": [{
+                        "name": "Modern 1"
+                    }, {
+                        "name": "Modern 2"
+                    }]
+                }, {
+                    "category": "Panels",
+                    "collections": [{
+                        "name": "Panels 1"
+                    }, {
+                        "name": "Panels 2"
+                    }]
+                }, {
+                    "category": "Renaissance",
+                    "categories": [{
+                        "category": "French Renaissance",
+                        "collections": [{
+                            "name": "French Renaissance 1"
+                        }, {
+                            "name": "French Renaissance 2"
+                        }]
+                    }, {
+                        "category": "Grotesque",
+                        "collections": [{
+                            "name": "Grotesque 1"
+                        }, {
+                            "name": "Grotesque 2"
+                        }]
+                    }, {
+                        "category": "Italian Renaissance",
+                        "collections": [{
+                            "name": "Italian Renaissance 1"
+                        }, {
+                            "name": "Italian Renaissance 2"
+                        }]
+                    }, {
+                        "category": "Mythological, Allegorical and Historical",
+                        "collections": [{
+                            "name": "Mythological 1"
+                        }, {
+                            "name": "Mythological 2"
+                        }]
+                    }, {
+                        "category": "Religious",
+                        "collections": [{
+                            "name": "Religious 1"
+                        }, {
+                            "name": "Religious 2"
+                        }]
+                    }]
+                }, {
+                    "category": "Russian",
+                    "collections": [{
+                        "name": "Russian 1"
+                    }, {
+                        "name": "Russian 2"
+                    }]
+                }, {
+                    "category": "Still Life",
+                    "collections": [{
+                        "name": "Still Life 1"
+                    }, {
+                        "name": "Still Life 2"
+                    }]
+                }]
+            }
+        }
+    },
+
+    handleResponse: function(data) {
+        console.log('handleResponse', data);
+    },
+
+    _onItemClick: function(event) {
+        this.$.pages.selected = 1;
+        //console.log('_onItemClick', event.detail.item);
+    },
+    _onItemClick2: function(event) {
+        this.$.pages.selected = 2;
+        //console.log('_onItemClick', event.detail.item);
+    },
+
+    _onClose: function() {
+        this.$.pages.selected = 0;
+    }
+
+});
+</script>
