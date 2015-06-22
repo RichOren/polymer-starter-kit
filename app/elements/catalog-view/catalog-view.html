@@ -1,16 +1,5 @@
 <!--
 -->
-<link rel="import" href="/bower_components/polymer/polymer.html">
-<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
-<link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
-<link rel="import" href="/bower_components/neon-animation/neon-animated-pages.html">
-<link rel="import" href="/bower_components/neon-animation/neon-animations.html">
-<link rel="import" href="topcategory-list.html">
-<link rel="import" href="subcategory-list.html">
-<link rel="import" href="collection-list.html">
-<link rel="import" href="collection-view.html">
-
 <dom-module id="catalog-view">
 
     <style>
@@ -49,7 +38,7 @@
 
             <collection-view
                 on-back="onSubCategoryBack"
-                collection="{{selectedCollection}}"></collection-view>
+                collection="{{selectedCollection}}"></collection-view> 
 
         </neon-animated-pages>
     </template>

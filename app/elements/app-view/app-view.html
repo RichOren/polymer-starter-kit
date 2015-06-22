@@ -1,0 +1,197 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<style>
+  :host {
+      display: block;
+  }
+
+  paper-material {
+    border-radius: 2px;
+    height: 100%;
+    padding: 16px 0 16px 0;
+    width: calc(98.66% - 16px);
+    margin: 16px auto;
+    background: white;
+  }
+
+  .neon-item{
+    @apply(--layout-horizontal);
+    @apply(--layout-center-center);
+    @apply(--paper-font-display4);
+  }
+  /* Height of the scroll area */
+  .content {
+    /*height: 900px;*/
+  }
+
+  /* Breakpoints */
+
+  /* Small */
+  @media (max-width: 600px) {
+
+    paper-material {
+      --menu-container-display: none;
+      width: calc(97.33% - 32px);
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .paper-font-display1 {
+      font-size: 12px;
+    }
+
+    .app-name {
+      font-size: 26px;
+    }
+
+    #drawer .paper-toolbar {
+      margin-left: 16px;
+    }
+
+    #overlay {
+      min-width: 360px;
+    }
+
+  }
+
+  /* Tablet+ */
+  @media (min-width: 601px) {
+
+    paper-material {
+      width: calc(98% - 46px);
+      margin-bottom: 32px;
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+
+    #drawer.paper-drawer-panel > [drawer] {
+      border-left: 1px solid rgba(0, 0, 0, 0.14);
+    }
+
+  }
+</style>
+<!--
+
+Extended Header + List Left + Card Over Toolbar
+
+ -->
+<dom-module id="app-view">
+
+  <link rel="import" type="css" href="app-view.css">
+
+  <template>
+
+    
+    <paper-drawer-panel id="drawerPanel" responsive-width="1024px" drawer-width="{{drawerWidth}}" right-drawer>
+      
+      <paper-header-panel class="list-panel" drawer mode="seamed">
+          <catalog-view class="fit"></catalog-view>
+      </paper-header-panel>
+        
+     
+      <paper-header-panel class="main-panel" main mode="{{mainMode}}">
+
+        <!-- Main Toolbar -->
+        <paper-toolbar class$="{{toolbarClass}}">
+            <span class="flex"></span>
+            <paper-icon-button on-click="_onPrevClick" icon="arrow-back"></paper-icon-button>
+            <paper-icon-button on-click="_onNextClick" icon="arrow-forward"></paper-icon-button>
+            <span class="flex"></span>
+            <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+        </paper-toolbar>
+        <div class="content">
+            <paper-material>
+                <neon-animated-pages id="pages" class="flex fit" selected="[[selected]]" entry-animation="[[entryAnimation]]" exit-animation="[[exitAnimation]]">
+                    <neon-animatable class="layout horizontal center-center">1</neon-animatable>
+                    <neon-animatable class="layout horizontal center-center">2</neon-animatable>
+                    <neon-animatable class="layout horizontal center-center">3</neon-animatable>
+                    <neon-animatable class="layout horizontal center-center">4</neon-animatable>
+                    <neon-animatable class="layout horizontal center-center">5</neon-animatable>
+                </neon-animated-pages>
+            </paper-material>
+        </div>
+
+      </paper-header-panel>
+
+    </paper-drawer-panel>
+
+    <iron-media-query query="(max-width: 780px)" query-matches="{{_isMobile}}"></iron-media-query>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'app-view',
+
+      created: function() {
+          console.log(this.localName + ' #' + this.id + ' was created', this);
+      },
+      ready: function() {
+          this.selected = 0;
+          console.log(this.localName + ' #' + this.id + ' is Ready');
+      },
+      attached: function() {
+          console.log(this.localName + ' #' + this.id + ' was attached');
+      },
+
+      detached: function() {
+          console.log(this.localName + ' #' + this.id + ' was detached');
+      },
+
+      attributeChanged: function(name, type) {
+          console.log(this.localName + '#' + this.id + ' attribute ' + name +
+              ' was changed to ' + this.getAttribute(name) + type);
+      },
+
+      properties: {
+
+        _isMobile: {
+          type: Boolean,
+          observer: '_isMobileChanged'
+        }
+
+      },
+
+
+
+      _listTap: function() {
+        this.$.drawerPanel.closeDrawer();
+      },
+
+      _isMobileChanged: function(isMobile) {
+        this.mainMode = isMobile ? 'seamed' : 'cover';
+        this.drawerWidth = isMobile ? '100%' : '320px';
+        this.toolbarClass = isMobile ? '' : 'tall';
+        this.updateStyles();
+      },
+
+      _onPrevClick: function() {
+          console.log('Prev', this.selected);
+          this.entryAnimation = 'slide-from-left-animation';
+          this.exitAnimation = 'slide-right-animation';
+          this.selected = this.selected === 0 ? 4 : (this.selected - 1);
+      },
+
+      _onNextClick: function() {
+          console.log('Next', this.selected);
+          this.entryAnimation = 'slide-from-right-animation';
+          this.exitAnimation = 'slide-left-animation';
+          this.selected = this.selected === 4 ? 0 : (this.selected + 1);
+      }
+
+
+
+    });
+
+  </script>
+
+</dom-module>

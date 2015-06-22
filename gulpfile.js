@@ -82,7 +82,7 @@ gulp.task('images', function () {
 // Copy All Files At The Root Level (app)
 gulp.task('copy', function () {
   var app = gulp.src([
-    'app/*',
+    'app/**/*',
     '!app/test',
     '!app/precache.json'
   ], {

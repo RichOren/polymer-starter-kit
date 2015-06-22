@@ -6,9 +6,6 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-<link rel="import" href="/bower_components/polymer/polymer.html">
-<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
-<link rel="import" href="/bower_components/neon-animation/neon-animatable-behavior.html">
 
 <dom-module id="collection-view">
 
@@ -86,6 +83,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         value: null
       },
 
+    },
+
+    attached: function() {
+      console.log('attached:::', this.collection);
+      // `attached` fires once the element and its parents have been inserted
+      // into a document.
+      //
+      // This is a good place to perform any work related to your element's
+      // visual state or active behavior (measuring sizes, beginning animations,
+      // loading resources, etc).
     },
 
     _onBackButtonClick: function() {

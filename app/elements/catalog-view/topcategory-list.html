@@ -1,21 +1,4 @@
-<!--
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-<link rel="import" href="/bower_components/polymer/polymer.html">
-<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="/bower_components/paper-item/paper-item.html">
-<link rel="import" href="/bower_components/paper-item/paper-item-body.html">
-<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
-<link rel="import" href="/bower_components/neon-animation/neon-animatable-behavior.html">
-<link rel="import" href="/bower_components/iron-meta/iron-meta.html">
-<link rel="import" href="/bower_components/paper-menu/paper-menu.html">
+
 
 <dom-module id="topcategory-list">
 
@@ -38,19 +21,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       margin-left: -8px!important;
       margin-right: 8px!important;
     }
+
+    paper-input {
+      color:#fff;
+    }
   </style>
 
   <template>
 
    <paper-toolbar class="tall">
-        <paper-icon-button class="bottom" icon="menu"></paper-icon-button>
-        <div title class="bottom toolbar-title">Art Catalog</div>
+        <!-- <paper-icon-button class="bottom" icon="menu"></paper-icon-button> -->
+        <paper-input label="Search Catalog" class="bottom flex"></paper-input>
+        <div title class="middle toolbar-title">Art Catalog</div>
         <iron-image class="flex fit" style="height:192px; background-color: lightgray;" sizing="cover" preload fade src="http://lorempixel.com/400/200/abstract/"></iron-image>
     </paper-toolbar>
 
 
     <div class="main">
-        <!-- <array-selector id="selector" items="{{categories}}" selected="{{selectedCategory}}"></array-selector> -->
         <paper-menu>
           <template id="catalogList" is="dom-repeat" items="[[topCategories]]" as="topCategory">
           
@@ -63,7 +50,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <template is="dom-if" if="{{!topCategory.categories}}">
                     <div secondary>[[topCategory.collections.length]]</div>
                   </template>
-                
               </paper-item-body>
 
               <iron-icon icon="info"></iron-icon>
@@ -87,10 +73,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       Polymer.NeonAnimatableBehavior
     ],
 
-    // listeners: {
-    //   'tap': '_onClick'
-    // },
-
     properties: {
 
       topCategories: {
@@ -100,69 +82,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      // selectedTopCategory: {
-      //   type: Object,
-      //   value: null,
-      //   notify: true
-      // },
-
-      // animationConfig: {
-      //   type: Object,
-      //   value: function() {
-      //     return {
-      //       'entry': [{
-      //         name: 'fade-in-animation',
-      //         node: this.$.button
-      //       }],
-
-      //       'exit': [{
-      //         name: 'fade-out-animation',
-      //         node: this.$.button
-      //       }, {
-      //         name: 'hero-animation',
-      //         id: 'hero',
-      //         fromPage: this
-
-      //       }]
-      //     };
-      //   }
-      // }
 
     },
     _onCategoryClick: function(event) {
       var topCategory = this.$.catalogList.itemForElement(event.target);
       console.log(topCategory);
-      //this.$.selector.select(category);
-      //this.selectedTopCategory = topCategory;
 
       this.fire('top-category-click', {
         topCategory: topCategory
       });
     },
 
-    // _onClick: function(event) {
-    //   var target = event.target;
-
-    //   var item = this.$.catalogList.itemForElement(event.target);
-    //   this.selected = item;
-    //   if (item == undefined) {
-    //     return;
-    //   }
-    //   console.log('_onClick:::selected', this.selected);
-
-    //   while (target !== this && !target._templateInstance) {
-    //     target = target.parentNode;
-    //   }
-
-    //   // configure the page animation
-    //   this.sharedElements = {
-    //     'hero': target
-    //   };
-
-    //   this.fire('item-click', {
-    //     item: item
-    //   });
-    // }
+   
 
   });
 

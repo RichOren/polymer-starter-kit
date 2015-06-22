@@ -6,9 +6,6 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-<link rel="import" href="/bower_components/polymer/polymer.html">
-<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
-<link rel="import" href="/bower_components/neon-animation/neon-animatable-behavior.html">
 
 <dom-module id="collection-list">
 
@@ -42,7 +39,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </paper-toolbar>
 
     <div id="main" class="main">
-      <paper-menu>
+      <paper-menu id="menu">
         <template id="collectionList" is="dom-repeat" items="[[category.collections]]" as="collection">
 
           <paper-item on-click="_onCollectionClick">
@@ -93,6 +90,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     _onBackButtonClick: function() {
+      this.$.menu.select(null);
       this.fire('back');
     }
 
