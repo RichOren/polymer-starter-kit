@@ -100,6 +100,8 @@ Extended Header + List Left + Card Over Toolbar
 
         <!-- Main Toolbar -->
         <paper-toolbar class$="{{toolbarClass}}">
+            <span>User:</span><span>{{userInfo}}</span>
+            
             <span class="flex"></span>
             <paper-icon-button on-click="_onPrevClick" icon="arrow-back"></paper-icon-button>
             <paper-icon-button on-click="_onNextClick" icon="arrow-forward"></paper-icon-button>
@@ -121,6 +123,10 @@ Extended Header + List Left + Card Over Toolbar
       </paper-header-panel>
 
     </paper-drawer-panel>
+
+    <iron-ajax auto url="/ZoneProcess.aspx"
+        params='{"ZoneID":"51", "Username":"awyss", "Password":"1234"}'
+        handle-as="json" last-response="{{ajaxResponse}}"></iron-ajax>
 
     <iron-media-query query="(max-width: 780px)" query-matches="{{_isMobile}}"></iron-media-query>
 
@@ -157,11 +163,13 @@ Extended Header + List Left + Card Over Toolbar
         _isMobile: {
           type: Boolean,
           observer: '_isMobileChanged'
-        }
+        },
 
+        userInfo: {
+          type: String,
+          observer: '_userInfoChanged'
+        },
       },
-
-
 
       _listTap: function() {
         this.$.drawerPanel.closeDrawer();
@@ -172,6 +180,10 @@ Extended Header + List Left + Card Over Toolbar
         this.drawerWidth = isMobile ? '100%' : '320px';
         this.toolbarClass = isMobile ? '' : 'tall';
         this.updateStyles();
+      },
+
+      _userInfoChanged: function(userInfo) {
+        console.log('_userInfoChanged', userInfo);
       },
 
       _onPrevClick: function() {

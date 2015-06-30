@@ -103,7 +103,7 @@ gulp.task('copy', function () {
     .pipe(gulp.dest('dist/sw-toolbox'));
 
   var vulcanized = gulp.src(['app/elements/elements.html'])
-    .pipe($.rename('elements.vulcanized.html'))
+    .pipe($.rename('elements.vulcanized.tpl'))
     .pipe(gulp.dest('dist/elements'));
 
   return merge(app, bower, elements, vulcanized, swBootstrap, swToolbox)
@@ -123,7 +123,7 @@ gulp.task('html', function () {
 
   return gulp.src(['app/**/*.html', '!app/{elements,test}/**/*.html'])
     // Replace path for vulcanized assets
-    .pipe($.if('*.html', $.replace('elements/elements.html', 'elements/elements.vulcanized.html')))
+    .pipe($.if('*.html', $.replace('elements/elements.html', 'elements/elements.vulcanized.tpl')))
     .pipe(assets)
     // Concatenate And Minify JavaScript
     .pipe($.if('*.js', $.uglify({preserveComments: 'some'})))
@@ -147,7 +147,7 @@ gulp.task('html', function () {
 gulp.task('vulcanize', function () {
   var DEST_DIR = 'dist/elements';
 
-  return gulp.src('dist/elements/elements.vulcanized.html')
+  return gulp.src('dist/elements/elements.vulcanized.tpl')
     .pipe($.vulcanize({
       dest: DEST_DIR,
       strip: true,
@@ -167,7 +167,7 @@ gulp.task('precache', function (callback) {
     if (error) {
       callback(error);
     } else {
-      files.push('index.html', './', 'bower_components/webcomponentsjs/webcomponents-lite.min.js');
+      files.push('index.html', './', 'bower_components/webcomponentsjs/webcomponents.min.js');
       var filePath = path.join(dir, 'precache.json');
       fs.writeFile(filePath, JSON.stringify(files), callback);
     }
