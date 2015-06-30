@@ -101,7 +101,6 @@ Extended Header + List Left + Card Over Toolbar
         <!-- Main Toolbar -->
         <paper-toolbar class$="{{toolbarClass}}">
             <span>User:</span><span>{{userInfo}}</span>
-            
             <span class="flex"></span>
             <paper-icon-button on-click="_onPrevClick" icon="arrow-back"></paper-icon-button>
             <paper-icon-button on-click="_onNextClick" icon="arrow-forward"></paper-icon-button>
@@ -111,7 +110,7 @@ Extended Header + List Left + Card Over Toolbar
         <div class="content">
             <paper-material>
                 <neon-animated-pages id="pages" class="flex fit" selected="[[selected]]" entry-animation="[[entryAnimation]]" exit-animation="[[exitAnimation]]">
-                    <neon-animatable class="layout horizontal center-center">1</neon-animatable>
+                    <neon-animatable class="layout horizontal center-center">[[ajaxResponse]]</neon-animatable>
                     <neon-animatable class="layout horizontal center-center">2</neon-animatable>
                     <neon-animatable class="layout horizontal center-center">3</neon-animatable>
                     <neon-animatable class="layout horizontal center-center">4</neon-animatable>
@@ -126,7 +125,7 @@ Extended Header + List Left + Card Over Toolbar
 
     <iron-ajax auto url="/ZoneProcess.aspx"
         params='{"ZoneID":"51", "Username":"awyss", "Password":"1234"}'
-        handle-as="json" last-response="{{ajaxResponse}}"></iron-ajax>
+        handle-as="text" last-response="{{ajaxResponse}}"></iron-ajax>
 
     <iron-media-query query="(max-width: 780px)" query-matches="{{_isMobile}}"></iron-media-query>
 
