@@ -123,9 +123,9 @@ Extended Header + List Left + Card Over Toolbar
 
     </paper-drawer-panel>
 
-    <iron-ajax auto url="/ZoneProcess.aspx"
+    <iron-ajax id="login" url="/ZoneProcess.aspx"
         params='{"ZoneID":"51", "Username":"awyss", "Password":"1234"}'
-        handle-as="text" last-response="{{ajaxResponse}}"></iron-ajax>
+        handle-as="text" on-response="handleResponse" last-response="{{ajaxResponse}}"></iron-ajax>
 
     <iron-media-query query="(max-width: 780px)" query-matches="{{_isMobile}}"></iron-media-query>
 
@@ -185,11 +185,16 @@ Extended Header + List Left + Card Over Toolbar
         console.log('_userInfoChanged', userInfo);
       },
 
+      handleResponse: function(response) {
+        console.log('handleResponse', response.detail.response);
+      },
+
       _onPrevClick: function() {
           console.log('Prev', this.selected);
           this.entryAnimation = 'slide-from-left-animation';
           this.exitAnimation = 'slide-right-animation';
           this.selected = this.selected === 0 ? 4 : (this.selected - 1);
+          this.$.login.generateRequest();
       },
 
       _onNextClick: function() {
